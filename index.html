@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+        const links = [
+            "https://www.youtube.com/watch?v=BbeeuzU5Qc8",
+            "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            "https://www.youtube.com/watch?v=fC7oUOUEEi4"
+        ];
+
+        const intensity = 32.0;
+
+        const now = new Date();
+        const x = now.getFullYear() * 365 + now.getMonth() * 31 + now.getDate();
+
+        const noise = (
+            Math.sin(x * 0.2 * intensity) * 0.5 +
+            Math.sin(x * 0.1 * intensity) * 0.3 +
+            Math.sin(x * 0.05 * intensity) * 0.2
+        );
+
+        const normalizedNoise = (noise + 1) / 2;
+        const index = Math.floor(normalizedNoise * links.length);
+
+        window.location.href = links[index];
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
