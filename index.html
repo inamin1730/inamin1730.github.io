@@ -10,33 +10,51 @@
     <meta name="twitter:card" content="summary_large_image" />
 
     <meta charset="utf-8">
-    <title>Redirecting...</title>
-    <script type="text/javascript">
-        const links = [
-            "https://www.youtube.com/watch?v=BbeeuzU5Qc8",
-            "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            "https://www.youtube.com/watch?v=fC7oUOUEEi4"
-        ];
-
-        const intensity = 32.0;
-
-        const now = new Date();
-        const x = now.getFullYear() * 365 + now.getMonth() * 31 + now.getDate();
-
-        const noise = (
-            Math.sin(x * 0.2 * intensity) * 0.5 +
-            Math.sin(x * 0.1 * intensity) * 0.3 +
-            Math.sin(x * 0.05 * intensity) * 0.2
-        );
-
-        const normalizedNoise = (noise + 1) / 2;
-        const index = Math.floor(normalizedNoise * links.length);
-
-        window.location.href = links[index];
-    </script>
+    <title>リダイレクト中...</title>
 </head>
 
-<body>
+<body style="margin: 0; padding: 0; overflow: hidden; background: #eee; color: #111;">
+
+    <div id="msg">
+        リダイレクト中...<br>
+        自動的に切り替わらない場合は、<a id="meme-button" href="javascript:void(0)">こちら</a>をクリックしてください。
+    </div>
+
+    <video id="v" autoplay muted loop playsinline
+        style="position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -100; transform: translate(-50%, -50%); object-fit: cover;">
+    </video>
+
+    <script type="text/javascript">
+        const generateDateSeed = () => {
+            const now = new Date();
+            return now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+        };
+
+        const pseudoRandom = (seed) => {
+            const x = Math.sin(seed) * 10000;
+            return x - Math.floor(x);
+        };
+
+        const links = [
+            "https://inamin1730.github.io/src/videos/armstrong.mp4",
+            "https://inamin1730.github.io/src/videos/get-stick-bugged-lol.mp4",
+            "https://inamin1730.github.io/src/videos/indi-home-paket-phoemix.mp4",
+            "https://inamin1730.github.io/src/videos/never-gonna-give-you-up.mp4",
+            "https://inamin1730.github.io/src/videos/whistle.mp4",
+            "https://inamin1730.github.io/src/videos/you-are-an-idiot.mp4",
+        ];
+
+        const todaysLink = links[Math.floor(pseudoRandom(generateDateSeed()) * links.length)];
+
+        document.getElementById("meme-button").addEventListener("click", () => {
+            document.title = "タブ閉じようとしなくていいから。";
+            const v = document.getElementById("v");
+            v.src = todaysLink;
+            v.muted = false;
+            v.play();
+            document.getElementById("msg").innerHTML = "";
+        });
+    </script>
 </body>
 
 </html>
