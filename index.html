@@ -20,7 +20,7 @@
         自動的に切り替わらない場合は、<a id="meme-button" href="javascript:void(0)">こちら</a>をクリックしてください。
     </div>
 
-    <video id="v" autoplay muted loop playsinline
+    <video id="v" preload="auto" muted loop playsinline
         style="position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -100; transform: translate(-50%, -50%); object-fit: cover;">
     </video>
 
@@ -46,10 +46,12 @@
 
         const todaysLink = links[Math.floor(pseudoRandom(generateDateSeed()) * links.length)];
 
+        const v = document.getElementById("v");
+        v.src = todaysLink;
+        v.load();
+
         document.getElementById("meme-button").addEventListener("click", () => {
             document.title = "タブ閉じようとしなくていいから。";
-            const v = document.getElementById("v");
-            v.src = todaysLink;
             v.muted = false;
             v.play();
             document.getElementById("msg").innerHTML = "";
